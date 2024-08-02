@@ -1,7 +1,0 @@
-#namespace for DEV environment
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: Petclinic-Dev
-
-
