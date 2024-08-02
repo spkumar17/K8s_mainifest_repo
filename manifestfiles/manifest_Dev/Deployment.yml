@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-deployment
-  namespace: Petclinic-Dev
+  namespace: PetclinicDev
   labels:
     app: nginx
 spec:
@@ -15,7 +15,7 @@ spec:
       labels:
         app: nginx
     spec:
-      serviceAccountName: Petclinic-SA-Dev
+      serviceAccountName: PetclinicSADev
       containers:
       - name: nginx
         image: nginx:1.14.2
