@@ -1,5 +1,5 @@
 
-#namespace for PROD environment
+#namespace for Dev environment
 apiVersion: v1
 kind: Namespace
 metadata:
