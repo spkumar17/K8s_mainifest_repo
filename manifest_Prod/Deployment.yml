@@ -17,7 +17,7 @@ spec:
     spec:
       serviceAccountName: petclinic-sa-prod
       containers:
-      - name: nginx
-        image: nginx:1.14.2
+      - name: petclinic-prod
+        image: prasannakumarsinganamalla431/petclinic:25
         ports:
         - containerPort: 80
