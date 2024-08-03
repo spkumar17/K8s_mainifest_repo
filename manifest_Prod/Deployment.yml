@@ -4,16 +4,16 @@ metadata:
   name: nginx-deployment
   namespace: petclinic-prod
   labels:
-    app: nginx
+    app: petclinic-label-prod
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: nginx
+      app: petclinic-label-prod
   template:
     metadata:
       labels:
-        app: nginx
+        app: petclinic-label-prod
     spec:
       serviceAccountName: petclinic-sa-prod
       containers:

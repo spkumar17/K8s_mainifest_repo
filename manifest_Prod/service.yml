@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service-prod
+spec:
+  type: ClusterIP
+  selector:
+    app: petclinic-label-prod
+  ports:
+    - port: 8001
+      targetPort: 80
