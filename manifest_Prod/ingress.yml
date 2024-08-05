@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-petclinic-prod
+  namespace: petclinic-prod
+spec:
+  rules:
+  - host: "petclinc.com"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/prod"
+        backend:
+          service:
+            name: frontend-service-prod
+            port:
+              number: 80

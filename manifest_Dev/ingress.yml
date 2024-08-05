@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: petclinic-prod
+  name: ingress-petclinic-dev
+spec:
+  rules:
+  - host: "petclinc.com"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/dev"
+        backend:
+          service:
+            name: frontend-service-dev
+            port:
+              number: 80
