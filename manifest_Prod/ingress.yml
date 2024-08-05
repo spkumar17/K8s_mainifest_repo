@@ -5,7 +5,7 @@ metadata:
   namespace: petclinic-prod
 spec:
   rules:
-  - host: "petclinc.com"
+  - host: "www.petclinic.com"
     http:
       paths:
       - pathType: Prefix

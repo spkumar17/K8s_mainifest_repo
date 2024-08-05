@@ -5,7 +5,7 @@ metadata:
   name: ingress-petclinic-dev
 spec:
   rules:
-  - host: "petclinc.com"
+  - host: "www.petclinic.com"
     http:
       paths:
       - pathType: Prefix
