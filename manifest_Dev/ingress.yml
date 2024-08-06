@@ -2,11 +2,11 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ingress-petclinic-dev
-  namespace: petclinic-prod
+  namespace: petclinic-dev
 spec:
   type: LoadBalancer
   rules:
-  - host: "www.petclinic.com"
+    #host: "www.petclinic.com" ----> commenting this as i am using ip to access the application rather configuring dns and accessing through it fyi, this is not a good practice in prod env 
     http:
       paths:
       - pathType: Prefix
@@ -16,3 +16,5 @@ spec:
             name: frontend-service-dev
             port:
               number: 80
+
+              #This configuration ensures that requests to the path /dev on the external IP address of the Ingress Controller will be routed to the frontend-service-dev service, even though it is a ClusterIP service.

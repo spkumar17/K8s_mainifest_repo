@@ -16,3 +16,5 @@ spec:
             name: frontend-service-prod
             port:
               number: 80
+
+#This configuration ensures that requests to the path /prod on the external IP address of the Ingress Controller will be routed to the frontend-service-prod service, even though it is a ClusterIP service.
