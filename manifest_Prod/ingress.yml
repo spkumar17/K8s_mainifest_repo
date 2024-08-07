@@ -3,8 +3,9 @@ kind: Ingress
 metadata:
   name: ingress-petclinic-prod
   namespace: petclinic-prod
+annotations:
+  nginx.ingress.kubernetes.io/rewrite-target: /  
 spec:
-  type: LoadBalancer
   rules:
     #host: "www.petclinic.com" ----> commenting this as i am using ip to access the application rather configuring dns and accessing through it fyi, this is not a good practice in prod env 
     http:
