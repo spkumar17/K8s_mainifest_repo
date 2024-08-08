@@ -7,15 +7,15 @@ annotations:
   nginx.ingress.kubernetes.io/rewrite-target: /  
 spec:
   rules:
-    #host: "www.petclinic.com" ----> commenting this as i am using ip to access the application rather configuring dns and accessing through it fyi, this is not a good practice in prod env 
-    http:
-      paths:
-      - pathType: Prefix
-        path: "/prod"
-        backend:
-          service:
-            name: frontend-service-prod
-            port:
-              number: 80
+    - host: "a31ecb4d8de0a4e8c805c6a706e12f50-860764022.us-east-1.elb.amazonaws.com" # lb dns name as i don't have dns name
+      http:
+        paths:
+        - pathType: Prefix
+          path: "/prod"
+          backend:
+            service:
+              name: frontend-service-prod
+              port:
+                number: 80
 
 #This configuration ensures that requests to the path /prod on the external IP address of the Ingress Controller will be routed to the frontend-service-prod service, even though it is a ClusterIP service.
