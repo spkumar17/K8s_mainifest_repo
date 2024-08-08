@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-petclinic-dev
+  namespace: petclinic-dev
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  labels:
+    ingressClassName: nginx
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: "a9236e923f53f43158ab7ed4f173128d-595673911.us-east-1.elb.amazonaws.com" # lb dns name as i don't have dns name
+      http:
+        paths:
+        - pathType: Prefix
+          path: "/dev"
+          backend:         
+            service:
+              name: frontend-service-dev
+              port:
+                number: 80
+              #This configuration ensures that requests to the path /dev on the external IP address of the Ingress Controller will be routed to the frontend-service-dev service, even though it is a ClusterIP service.
