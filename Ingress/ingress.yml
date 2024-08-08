@@ -11,14 +11,14 @@ spec:
       http:
         paths:
           - pathType: Prefix
-            path: "/dev"
+            path: /dev
             backend:         
               service:
                 name: frontend-service-dev
                 port:
                   number: 80
           - pathType: Prefix
-            path: "/prod"
+            path: /prod
             backend:         
               service:
                 name: frontend-service-prod
