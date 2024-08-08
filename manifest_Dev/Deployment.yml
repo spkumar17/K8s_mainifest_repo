@@ -18,6 +18,6 @@ spec:
       serviceAccountName: petclinic-sa-dev
       containers:
       - name: petclinic-dev
-        image: prasannakumarsinganamalla431/petclinic:25
+        image: prasannakumarsinganamalla431/petclinic:8
         ports:
         - containerPort: 80
