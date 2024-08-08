@@ -17,6 +17,7 @@ spec:
             path: /dev
             backend:         
               service:
+                namespace: petclinic-dev
                 name: frontend-service-dev
                 port:
                   number: 80
@@ -24,6 +25,7 @@ spec:
             path: /prod
             backend:         
               service:
+                namespace: petclinic-prod
                 name: frontend-service-prod
                 port:
                   number: 80
