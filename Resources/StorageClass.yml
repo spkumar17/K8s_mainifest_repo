@@ -2,11 +2,10 @@ apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: ebs-sc
-reclaimPolicy: retain
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
 provisioner: ebs.csi.aws.com
-volumeBindingMode: Immediate
+volumeBindingMode: WaitForFirstConsumer  
 parameters:
   type: gp2
-allowVolumeExpansion: true
-
-
+allowVolumeExpansion: true  # Allow resizing the volume
