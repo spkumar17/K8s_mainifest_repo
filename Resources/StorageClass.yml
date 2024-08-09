@@ -2,12 +2,12 @@ apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: ebs-sc-s
+reclaimpolicy: retain
 provisioner: ebs.csi.aws.com
 volumeBindingMode: Immediate
 volumeMode: Filesystem
 parameters:
   type: gp2
 allowVolumeExpansion: true
-reclaimpolicy: retain
 
 
