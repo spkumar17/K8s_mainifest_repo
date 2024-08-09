@@ -10,7 +10,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: "ab0a7466238ec4dafa919479703e4b09-947173260.us-east-1.elb.amazonaws.com" # lb dns name as i don't have dns name
+    - host: "af14439dd59bf4e1186a6cf8a747a07a-1534555825.us-east-1.elb.amazonaws.com" # lb dns name as i don't have dns name
       http:
         paths:
         - pathType: Prefix
