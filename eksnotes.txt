@@ -1,0 +1,79 @@
+#Get Kube config File for your EKS cluster:
+---->The kubeconfig file is essential for interacting with your Amazon EKS cluster. This file contains configuration details such as the cluster's API server endpoint, authentication details, and context information, allowing you to use kubectl to manage your EKS cluster.
+command:
+aws eks --region us-east-1 update-kubeconfig --name eks-cluster
+----------------------------------------------------------------------------------
+#install eksctl:k
+curl --silent --location "https://github.com/weaveworks/eksctl/releases/download/latest_release/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+sudo mv /tmp/eksctl /usr/local/bin
+----------------------------------------------------------------------------------------
+#install helm
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
+
+---->how to install in windows https://github.com/helm/helm/releases
+--------------------------------------
+#install CSI driver
+#CSI drivers allow Kubernetes to interface with various storage backends through a standard API. 
+
+helm repo add aws-ebs-csi-driver https://kubernetes-sigs.github.io/aws-ebs-csi-driver
+
+helm repo update
+helm upgrade --install aws-ebs-csi-driver aws-ebs-csi-driver/aws-ebs-csi-driver --namespace kube-system
+
+-----------------------------
+to decrypt base64
+--------------------------
+powershell -Command "[System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String('WHg2bnJwS2hhdEttOW5PVQ=='))"
+--------------------------------------
+ingress nginix install
+
+Webpage ref:https://kubernetes.github.io/ingress-nginx/deploy/
+
+
+-------------------------------------
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-petclinic-dev
+  namespace: petclinic-dev
+spec:
+  rules:
+    - host: "a31ecb4d8de0a4e8c805c6a706e12f50-860764022.us-east-1.elb.amazonaws.com" # lb dns name as i don't have dns name
+      http:
+        paths:
+        - pathType: Prefix
+          path: "/dev"
+          backend:         
+            service:
+              name: frontend-service-dev
+              port:
+                number: 80
+              #This configuration ensures that requests to the path /dev on the external IP address of the Ingress Controller will be routed to the frontend-service-dev service, even though it is a ClusterIP service.
+
+              =------------------------------------------------------
+
+installing nginx ingress controller using helm 
+
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx/
+helm repo update
+kubectl create namespace ingress-nginx
+helm install nginx-ingress ingress-nginx/ingress-nginx -n ingress-nginx
+
+make sure controller watches all ingress rescources in all the namespaces 
+modify this deployment.yml of controller:
+
+kubectl edit deployment nginx-ingress-ingress-nginx-controller -n ingress-nginx  
+
+spec:
+  containers:
+    - name: nginx-ingress-controller
+      args:
+        - /nginx-ingress-controller
+        - --watch-namespace=
+
+        add  - --watch-namespace=
+-----
+if you find any issue  make sure to check the logs of the deployment
+kubectl logs nginx-ingress-ingress-nginx-controller-7855544b44-n6bcf -n ingress-nginx
