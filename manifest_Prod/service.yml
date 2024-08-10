@@ -7,5 +7,5 @@ spec:
   selector:
     app: petclinic-label-prod
   ports:
-    - port: 8001
+    - port: 81
       targetPort: 80

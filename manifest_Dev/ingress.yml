@@ -19,5 +19,5 @@ spec:
             service:
               name: frontend-service-dev
               port:
-                number: 80
+                number: 81
               #This configuration ensures that requests to the path /dev on the external IP address of the Ingress Controller will be routed to the frontend-service-dev service, even though it is a ClusterIP service.
