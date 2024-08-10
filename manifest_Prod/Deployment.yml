@@ -21,3 +21,11 @@ spec:
         image: prasannakumarsinganamalla431/petclinic:10
         ports:
         - containerPort: 80
+      env:
+        - name: SQL_URL
+          valueFrom:
+            configMapKeyRef:
+              name: petclinic-config-prod
+              key: SQL_URL    
+
+
