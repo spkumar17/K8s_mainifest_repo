@@ -26,11 +26,7 @@ spec:
                   name: mysecret-dev
           volumeMounts:
             - name: mysql-storage-dev
-              mountPath: /var/lib/mysql
-    volumes:
-      - name: mysql-storage-dev
-        configMap:
-          name: mysql-initdb-config-dev         
+              mountPath: /var/lib/mysql   
   volumeClaimTemplates:
     - metadata:
         name: mysql-storage-dev

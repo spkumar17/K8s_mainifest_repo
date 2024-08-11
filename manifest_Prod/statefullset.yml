@@ -26,14 +26,7 @@ spec:
                 name: mysecret-prod
           volumeMounts:
             - name: mysql-storage-prod
-              mountPath: /var/lib/mysql
-    volumes:
-      - name: mysql-storage-prod
-        persistentVolumeClaim:
-            claimName: mysql-storage-prod
-      - name: mysql-initdb-config-prod
-        configMap:
-          name: mysql-initdb-config-prod         
+              mountPath: /var/lib/mysql       
   volumeClaimTemplates:
     - metadata:
         name: mysql-storage-prod
