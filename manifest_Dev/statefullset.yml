@@ -17,7 +17,7 @@ spec:
       serviceAccountName: petclinic-sa-dev
       containers:
         - name: mysql
-          image: mysql:5.7
+          image: prasannakumarsinganamalla431/petclinicmysql:v1
           env:
             - name: MYSQL_ROOT_PASSWORD
               valueFrom: 
