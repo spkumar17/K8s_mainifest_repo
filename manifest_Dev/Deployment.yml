@@ -27,5 +27,8 @@ spec:
             configMapKeyRef:
               name: petclinic-config
               key: SQL_URL  
-              
+  volumes:
+      - name: mysql-storage-dev
+        persistentVolumeClaim:
+          claimName: mysql-storage-dev
 
