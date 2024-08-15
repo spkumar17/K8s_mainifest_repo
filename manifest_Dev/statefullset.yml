@@ -1,3 +1,73 @@
+# apiVersion: apps/v1
+# kind: StatefulSet
+# metadata:
+#   name: mysql
+#   namespace: petclinic-dev
+# spec:
+#   serviceName: "mysql-headless-backend"
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: mysql
+#   template:
+#     metadata:
+#       labels:
+#         app: mysql
+#     spec:
+#       serviceAccountName: petclinic-sa-dev
+#       containers:
+#         - name: mysql
+#           image: prasannakumarsinganamalla431/petclinicmysql:v1
+#           env:
+#             - name: MYSQL_ROOT_PASSWORD
+#               valueFrom:
+#                 secretKeyRef:
+#                   key: ROOT_PASSWORD
+#                   name: mysecret-dev
+#           volumeMounts:
+#             - name: mysql-storage-dev
+#               mountPath: /var/lib/mysql
+#       volumes:
+#         - name: mysql-storage-dev
+#           persistentVolumeClaim:
+#             claimName: mysql-storage-dev
+---
+# apiVersion: apps/v1
+# kind: StatefulSet
+# metadata:
+#   name: mysql
+#   namespace: petclinic-prod
+# spec:
+#   serviceName: "mysql-headless-backend"
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: mysql
+#   template:
+#     metadata:
+#       labels:
+#         app: mysql
+#     spec:
+#       serviceAccountName: petclinic-sa-prod
+#       containers:
+#         - name: mysql
+#           image: prasannakumarsinganamalla431/petclinicmysql:v1
+#           env:
+#             - name: MYSQL_ROOT_PASSWORD
+#               valueFrom:
+#                 secretKeyRef:
+#                   key: ROOT_PASSWORD
+#                   name: mysecret-prod
+#           volumeMounts:
+#             - name: mysql-storage-prod
+#               mountPath: /var/lib/mysql
+#       volumes:
+#         - name: mysql-storage-prod
+#           persistentVolumeClaim:
+#             claimName: mysql-storage-prod
+
+#             apiVersion: apps/v1
+---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -27,7 +97,12 @@ spec:
           volumeMounts:
             - name: mysql-storage-dev
               mountPath: /var/lib/mysql
-      volumes:
-        - name: mysql-storage-dev
-          persistentVolumeClaim:
-            claimName: mysql-storage-dev
+  volumeClaimTemplates:
+    - metadata:
+        name: mysql-storage-dev
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 5Gi
+        storageClassName: ebs-sc 
