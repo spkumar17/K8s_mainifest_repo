@@ -20,14 +20,14 @@ spec:
           image: prasannakumarsinganamalla431/petclinicmysql:v1
           env:
             - name: MYSQL_ROOT_PASSWORD
-              valueFrom: 
-               secretKeyRef: 
-                key: ROOT_PASSWORD
-                name: mysecret-prod
+              valueFrom:
+                secretKeyRef:
+                  key: ROOT_PASSWORD
+                  name: mysecret-prod
           volumeMounts:
             - name: mysql-storage-prod
               mountPath: /var/lib/mysql
-  volumes:
-    - name: mysql-storage-prod
-      persistentVolumeClaim:
-        claimName: mysql-storage-prod
+      volumes:
+        - name: mysql-storage-prod
+          persistentVolumeClaim:
+            claimName: mysql-storage-prod

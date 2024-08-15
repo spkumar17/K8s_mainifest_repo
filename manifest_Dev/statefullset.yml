@@ -27,7 +27,7 @@ spec:
           volumeMounts:
             - name: mysql-storage-dev
               mountPath: /var/lib/mysql
-    volumes:
-      - name: mysql-storage-dev
-        persistentVolumeClaim:
-          claimName: mysql-storage-dev
+      volumes:
+        - name: mysql-storage-dev
+          persistentVolumeClaim:
+            claimName: mysql-storage-dev
