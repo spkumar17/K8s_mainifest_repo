@@ -25,7 +25,7 @@ helm upgrade --install aws-ebs-csi-driver aws-ebs-csi-driver/aws-ebs-csi-driver 
 -----------------------------
 to decrypt base64
 --------------------------
-powershell -Command "[System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String('QWlpdW9UM1pxYks3M256ag=='))"
+powershell -Command "[System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String('azc3V1hJNC0zZkI1M0FzZg=='))"
 
 Encoding to base64 in windows
 
@@ -116,3 +116,13 @@ as the IRSA GOT depriciated for ebs_csi_aws we need to use pod identily associat
 
  eksctl utils migrate-to-pod-identity --cluster eks-cluster --region us-east-1   --approve
 
+if we have this below error follow the below commands
+
+PS C:\Users\prasa> eksctl create iamserviceaccount --name ebs-csi-controller-sa --namespace kube-system --cluster eks-cluster --attach-policy-arn arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy --approve --role-only --role-name AmazonEKS_EBS_CSI_DriverRole
+2024-08-15 09:48:58 [ℹ]  1 existing iamserviceaccount(s) (kube-system/ebs-csi-controller-sa) will be excluded
+2024-08-15 09:48:58 [ℹ]  1 iamserviceaccount (kube-system/ebs-csi-controller-sa) was excluded (based on the include/exclude rules)
+2024-08-15 09:48:58 [!]  serviceaccounts in Kubernetes will not be created or modified, since the option --role-only is used
+2024-08-15 09:48:58 [ℹ]  no tasks
+
+eksctl delete iamserviceaccount --name ebs-csi-controller-sa --namespace kube-system --cluster eks-cluster 
+ eksctl delete addon --name aws-ebs-csi-driver --cluster eks-cluster
