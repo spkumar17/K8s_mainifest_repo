@@ -31,7 +31,7 @@ spec:
     - metadata:
         name: mysql-storage-prod
       spec:
-        accessModes: ["ReadWriteOnce"]
+        accessModes: [ "ReadWriteOnce" ]
         resources:
           requests:
             storage: 2Gi
