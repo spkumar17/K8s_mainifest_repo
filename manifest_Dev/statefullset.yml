@@ -20,19 +20,14 @@ spec:
           image: prasannakumarsinganamalla431/petclinicmysql:v1
           env:
             - name: MYSQL_ROOT_PASSWORD
-              valueFrom: 
-                secretKeyRef: 
+              valueFrom:
+                secretKeyRef:
                   key: ROOT_PASSWORD
                   name: mysecret-dev
           volumeMounts:
             - name: mysql-storage-dev
               mountPath: /var/lib/mysql
-  volumeClaimTemplates:
-    - metadata:
-        name: mysql-storage-dev
-      spec:
-        accessModes: ["ReadWriteOnce"]
-        resources:
-          requests:
-            storage: 2Gi
-        storageClassName: ebs-sc
+    volumes:
+      - name: mysql-storage-dev
+        persistentVolumeClaim:
+          claimName: mysql-storage-dev
