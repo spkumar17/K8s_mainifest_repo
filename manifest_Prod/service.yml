@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: frontend-service-prod
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   selector:
     app: petclinic-label-prod
   ports:
