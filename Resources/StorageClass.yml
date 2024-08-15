@@ -5,7 +5,7 @@ metadata:
   annotations:
     storageclass.kubernetes.io/is-default-class: "true"
 provisioner: ebs.csi.aws.com
-volumeBindingMode: WaitForFirstConsumer  
+volumeBindingMode: Immediate  
 parameters:
   type: gp2
-allowVolumeExpansion: true  # Allow resizing the volume
+allowVolumeExpansion: true  
