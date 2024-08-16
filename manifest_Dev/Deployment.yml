@@ -27,4 +27,18 @@ spec:
             configMapKeyRef:
               name: petclinic-config
               key: SQL_URL
-
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: ROOT_PASSWORD
+              name: mysecret-dev
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              key: USER_NAME
+              name: mysecret-dev1
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: USER_PASSWORD
+              name: mysecret-dev2
