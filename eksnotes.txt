@@ -173,11 +173,11 @@ Enter password:
 RUN THIS COMMANDS AND CREATE TABELES AND DATA IN IT 
 SOURCE user.sql
 USE your_database_name;  ---> USE petclinic;
-SOURCE schema.sql
 SOURCE data.sql
+SOURCE schema.sql
 verify using below:
 SHOW DATABASES;
 USE petclinic;
 show TABELES;
 SELECT * FROM owners;
-SELECT * FROM pet;
+SELECT * FROM vets;
