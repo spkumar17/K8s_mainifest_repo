@@ -165,6 +165,7 @@ kubectl cp ./mysql mysql-0:/var/lib/mysql
 
 enter into mysql container 
 kubectl exec -it mysql-0 -n petclinic-prod -- sh
+kubectl exec -it mysql-0 -n petclinic-dev -- sh
 
 then connect to mysql client 
 bash-4.2# mysql -u root -p
