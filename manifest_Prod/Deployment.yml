@@ -17,14 +17,28 @@ spec:
     spec:
       serviceAccountName: petclinic-sa-prod
       containers:
-      - name: petclinic-dev
+      - name: petclinic-prod
         image: prasannakumarsinganamalla431/petclinic:11
         ports:
         - containerPort: 80
         env:
-        - name: SQL_URL
+        - name: MYSQL_URL
           valueFrom:
             configMapKeyRef:
               name: petclinic-config
-              key: SQL_URL
-
+              key: MYSQL_URL
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysecret-prod
+              key: ROOT_PASSWORD     
+        - name:  MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: mysecret-prod1
+              key: MYSQL_USER
+        - name: MYSQL_PASS
+          valueFrom:
+            secretKeyRef:
+              name: mysecret-prod2
+              key: MYSQL_PASS
