@@ -22,23 +22,23 @@ spec:
         ports:
         - containerPort: 80
         env:
-        - name: SQL_URL
+        - name: MYSQL_URL
           valueFrom:
             configMapKeyRef:
-              name: MYSQL_URL
+              name: petclinic-config
               key: MYSQL_URL
         - name: MYSQL_ROOT_PASSWORD
           valueFrom:
             secretKeyRef:
-              key: ROOT_PASSWORD
               name: mysecret-dev
-        - name: MYSQL_USER
+              key: ROOT_PASSWORD     
+        - name:  MYSQL_USER
           valueFrom:
             secretKeyRef:
-              key: USER_NAME
               name: mysecret-dev1
+              key: MYSQL_USER
         - name: MYSQL_PASS
           valueFrom:
             secretKeyRef:
-              key: USER_PASSWORD
               name: mysecret-dev2
+              key: MYSQL_PASS
