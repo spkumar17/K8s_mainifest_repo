@@ -25,7 +25,7 @@ spec:
         - name: SQL_URL
           valueFrom:
             configMapKeyRef:
-              name: petclinic-config
+              name: MYSQL_URL
               key: MYSQL_URL
         - name: MYSQL_ROOT_PASSWORD
           valueFrom:
