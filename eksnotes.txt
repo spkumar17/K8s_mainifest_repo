@@ -162,6 +162,7 @@ copy data from local machine to pods pv mount path
 
 kubectl cp ./mysql mysql-0:/var/lib/mysql
 
+>kubectl cp . -n petclinic-dev mysql-0:/var/lib/mysql -c mysql
 
 enter into mysql container 
 kubectl exec -it mysql-0 -n petclinic-prod -- sh
@@ -173,7 +174,7 @@ Enter password:
 
 RUN THIS COMMANDS AND CREATE TABELES AND DATA IN IT 
 SOURCE user.sql
-USE your_database_name;  ---> USE petclinic;
+USE petclinic;
 SOURCE data.sql
 SOURCE schema.sql
 verify using below:
@@ -182,3 +183,34 @@ USE petclinic;
 show TABELES;
 SELECT * FROM owners;
 SELECT * FROM vets;
+
+to check data is stored in pv restart the pod and rerun the following commands using mysql client
+---------------------------------------------------
+use this if we get an issue stating that unable to create the pod and connect to pv as there are already files in the mentioned path 
+inorder to clear the files create and init container which runs before the pod and clear the files in that specific path
+initContainers:
+        - name: init-mysql-cleanup
+          image: busybox
+          command: ['sh', '-c', 'rm -rf /var/lib/mysql/*']
+          volumeMounts:
+            - name: mysql-storage-prod
+              mountPath: /var/lib/mysql
+
+this helps in clearing the pv dir files  if the issue happens 
+---------------------------------------------------
+
+got an issue like when ever i restart my frontend pod all the data i entered is deleting it is not becouse the backend is not correctly configered 
+but application.properties Database is configered as H2 which is in-memory database which is not persistent whenever pod restarted data will be lost
+so i changed it to MYSQL and so data is now getting stored in pv even if any frentend or backend pod get restarted data will never get lost until we delete the pv manully 
+# Activate the MySQL profile this will change the default H2 to MYSQL same need to change to any other databases 
+spring.profiles.active=mysql
+
+and missconfigured the svc in deployoment manifest resulting in prod rescources saving data in dev mysql to over come this we neede to use RBAC
+Even if we missconfigured we need to male sure that dev rescources should not communicate with prod rescources.
+
+make sure to  config configmaps and servers in order to get error 
+
+this we faces:
+ImagePullBackOff
+CrashLoopBackOff
+ConfigMapError
