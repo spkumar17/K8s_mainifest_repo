@@ -88,7 +88,7 @@ spec:
       initContainers:
         - name: init-mysql-cleanup
           image: busybox
-          command: ['sh', '-c', 'find /var/lib/mysql -type f ! -name "*.sql" -delete']
+          command: ['sh', '-c', 'rm -rf /var/lib/mysql/*']
           volumeMounts:
             - name: mysql-storage-dev
               mountPath: /var/lib/mysql
