@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-deployment
+  name: petclinic-deployment
   namespace: petclinic-dev
   labels:
     app: petclinic-label-prod
@@ -26,9 +26,5 @@ spec:
           valueFrom:
             configMapKeyRef:
               name: petclinic-config
-              key: SQL_URL  
-  volumes:
-      - name: mysql-storage-dev
-        persistentVolumeClaim:
-          claimName: mysql-storage-dev
+              key: SQL_URL
 
