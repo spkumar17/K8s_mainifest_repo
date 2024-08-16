@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-deployment
+  name: petclinic-deployment
   namespace: petclinic-prod
   labels:
     app: petclinic-label-prod
@@ -17,15 +17,14 @@ spec:
     spec:
       serviceAccountName: petclinic-sa-prod
       containers:
-      - name: petclinic-prod
+      - name: petclinic-dev
         image: prasannakumarsinganamalla431/petclinic:10
         ports:
         - containerPort: 80
-      env:
+        env:
         - name: SQL_URL
           valueFrom:
             configMapKeyRef:
-              name: petclinic-config-prod
-              key: SQL_URL    
-
+              name: petclinic-config
+              key: SQL_URL
 
