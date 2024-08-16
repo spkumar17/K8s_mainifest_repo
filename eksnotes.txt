@@ -20,12 +20,12 @@ chmod 700 get_helm.sh
 helm repo add aws-ebs-csi-driver https://kubernetes-sigs.github.io/aws-ebs-csi-driver
 
 helm repo update
-helm upgrade --install aws-ebs-csi-driver aws-ebs-csi-driver/aws-ebs-csi-driver --namespace kube-system
+helm upgrade --install aws-ebs-csi-driver aws-ebs-csi-driver/aws-ebs-csi-driver --namespace kube-system --version v1.33.0-eksbuild.1
 
 -----------------------------
 to decrypt base64
 --------------------------
-powershell -Command "[System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String('azc3V1hJNC0zZkI1M0FzZg=='))"
+powershell -Command "[System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String('S0ZyZlQxYnc2dE1sbjZZUQ=='))"
 
 Encoding to base64 in windows
 
@@ -100,21 +100,19 @@ then create an iam role for service account
 single line:
 eksctl create iamserviceaccount --name ebs-csi-controller-sa --namespace kube-system --cluster eks-cluster --attach-policy-arn arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy --approve --role-only --role-name AmazonEKS_EBS_CSI_DriverRole
 
-multiline:
-eksctl create iamserviceaccount `
-  --name ebs-csi-controller-sa `
-  --namespace kube-system `
-  --cluster eks-cluster `
-  --attach-policy-arn arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy `
-  --approve `
-  --role-only `
-  --role-name AmazonEKS_EBS_CSI_DriverRole
 
 eksctl create addon --name aws-ebs-csi-driver --cluster eks-cluster --service-account-role-arn arn:aws:iam::021891605639:role/AmazonEKS_EBS_CSI_DriverRole --force
+
+
 as the IRSA GOT depriciated for ebs_csi_aws we need to use pod identily associate
  (IRSA has been deprecated; the recommended way to provide IAM permissions for "aws-ebs-csi-driver" addon is via pod identity associations; after addon creation is completed, run `eksctl utils migrate-to-pod-identity`)
 
+
+
  eksctl utils migrate-to-pod-identity --cluster eks-cluster --region us-east-1   --approve
+
+
+
 
 if we have this below error follow the below commands
 
@@ -126,3 +124,35 @@ PS C:\Users\prasa> eksctl create iamserviceaccount --name ebs-csi-controller-sa 
 
 eksctl delete iamserviceaccount --name ebs-csi-controller-sa --namespace kube-system --cluster eks-cluster 
  eksctl delete addon --name aws-ebs-csi-driver --cluster eks-cluster
+aws eks describe-addon-versions --addon-name aws-ebs-csi-driver --kubernetes-version 1.30
+
+
+
+
+
+
+
+
+
+
+----------------------------
+kubectl run -i --tty --image busybox:1.28 dns-test --restart=Never --rm
+
+nslookup mysql-headless-backend.petclinic-dev.svc.cluster.local
+nslookup frontend-service-dev.petclinic-dev.svc.cluster.local
+
+-----------------------
+kubectl run -i --tty --image nginx:alpine test-pod --restart=Never --rm -- sh
+
+curl http://frontend-service-dev.petclinic-dev.svc.cluster.local:81
+
+we cannot use curl to connect to mysql
+MySQL is a database server and does not communicate over HTTP by default; it uses its own protocol over TCP.
+or use netcat:
+nc -zv mysql-headless-backend.petclinic-dev.svc.cluster.local 3306
+
+-----------------------------------------
+instead use 
+kubectl run -i --tty --image=mysql:5.0 --restart=Never --rm mysql-client -- sh
+
+mysql -h mysql-headless-backend.petclinic-dev.svc.cluster.local -P 3306 -u your-username -p
