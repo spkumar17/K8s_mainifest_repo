@@ -37,8 +37,8 @@ spec:
             secretKeyRef:
               name: mysecret-prod1
               key: MYSQL_USER
-        - name: MYSQL_PASS
+        - name: MYSQL_PASSWORD
           valueFrom:
             secretKeyRef:
               name: mysecret-prod2
-              key: MYSQL_PASS
+              key: MYSQL_PASSWORD
