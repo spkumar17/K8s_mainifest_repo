@@ -18,7 +18,7 @@ spec:
       serviceAccountName: petclinic-sa-prod
       containers:
       - name: petclinic-prod
-        image: prasannakumarsinganamalla431/petclinic:11
+        image: prasannakumarsinganamalla431/petclinic:12
         ports:
         - containerPort: 80
         env:
