@@ -3,6 +3,9 @@ kind: Service
 metadata:
   name: frontend-service-dev
   namespace: petclinic-dev
+  annotations:
+    Prometheus.io/path: /actuator/Prometheus
+    Prometheus.io/scrape: "true"  
 spec:
   type: LoadBalancer
   selector:
