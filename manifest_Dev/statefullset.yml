@@ -15,6 +15,13 @@ spec:
         app: mysql
     spec:
       serviceAccountName: petclinic-sa-dev
+      initContainers:
+        - name: init-mysql-cleanup
+          image: busybox
+          command: ['sh', '-c', 'rm -rf /var/lib/mysql/*']
+          volumeMounts:
+            - name: mysql-storage-prod
+              mountPath: /var/lib/mysql
       containers:
         - name: mysql
           image: prasannakumarsinganamalla431/petclinicmysql:v1
