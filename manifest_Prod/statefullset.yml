@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: mysql
-  namespace: petclinic-Prod
+  namespace: petclinic-prod
 spec:
   serviceName: "mysql-headless-backend"
   replicas: 1
@@ -15,16 +15,6 @@ spec:
         app: mysql
     spec:
       serviceAccountName: petclinic-sa-prod
-      initContainers:
-        - name: init-mysql-cleanup
-          image: busybox
-          command:
-            - 'sh'
-            - '-c'
-            - 'rm -rf /var/lib/mysql/*'
-          volumeMounts:
-            - name: mysql-storage-prod
-              mountPath: /var/lib/mysql
       containers:
         - name: mysql
           image: prasannakumarsinganamalla431/petclinicmysql:v1
@@ -56,3 +46,4 @@ spec:
           requests:
             storage: 5Gi
         storageClassName: ebs-sc 
+
