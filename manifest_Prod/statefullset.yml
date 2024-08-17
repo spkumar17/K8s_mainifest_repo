@@ -27,12 +27,12 @@ spec:
             - name: MYSQL_USER
               valueFrom:
                 secretKeyRef:
-                  key: USER_NAME
+                  key: MYSQL_USER
                   name: mysecret-prod1
             - name: MYSQL_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  key: USER_PASSWORD
+                  key: MYSQL_PASSWORD
                   name: mysecret-prod2
           volumeMounts:
             - name: mysql-storage-prod
