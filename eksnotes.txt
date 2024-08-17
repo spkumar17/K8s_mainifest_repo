@@ -257,3 +257,4 @@ kubectl get secret --namespace grafana grafana -o jsonpath="{.data.admin-passwor
 ######            the Grafana pod is terminated.                            #####
 #################################################################################
 
+   
