@@ -47,7 +47,7 @@ spec:
           volumeMounts:
             - name: mysql-storage-dev
               mountPath: /var/lib/mysql
-      volumeClaimTemplates:
+    volumeClaimTemplates:
         - metadata:
             name: mysql-storage-dev
           spec:
@@ -55,4 +55,4 @@ spec:
             resources:
               requests:
                 storage: 5Gi
-            storageClassName: ebs-sc
+            storageClassName: ebs-sc  
