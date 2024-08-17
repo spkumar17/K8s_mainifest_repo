@@ -18,7 +18,10 @@ spec:
       initContainers:
         - name: init-mysql-cleanup
           image: busybox
-          command: ['sh', '-c', 'rm -rf /var/lib/mysql/*']
+          command:
+            - 'sh'
+            - '-c'
+            - 'rm -rf /var/lib/mysql/*'
           volumeMounts:
             - name: mysql-storage-prod
               mountPath: /var/lib/mysql
@@ -51,7 +54,8 @@ spec:
         - metadata:
             name: mysql-storage-prod
           spec:
-            accessModes: ["ReadWriteOnce"]
+            accessModes:
+              - ReadWriteOnce
             resources:
               requests:
                 storage: 5Gi

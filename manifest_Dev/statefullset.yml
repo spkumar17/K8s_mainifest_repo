@@ -20,7 +20,7 @@ spec:
           image: busybox
           command: ['sh', '-c', 'rm -rf /var/lib/mysql/*']
           volumeMounts:
-            - name: mysql-storage-prod
+            - name: mysql-storage-dev
               mountPath: /var/lib/mysql
       containers:
         - name: mysql
@@ -29,27 +29,30 @@ spec:
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  key: ROOT_PASSWORD
                   name: mysecret-dev
+                  key: ROOT_PASSWORD
             - name: MYSQL_USER
               valueFrom:
                 secretKeyRef:
-                  key: MYSQL_USER
                   name: mysecret-dev1
+                  key: MYSQL_USER
             - name: MYSQL_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  key: MYSQL_PASSWORD
                   name: mysecret-dev2
+                  key: MYSQL_PASSWORD
+          ports:
+            - containerPort: 3306
+              name: mysql
           volumeMounts:
             - name: mysql-storage-dev
               mountPath: /var/lib/mysql
-  volumeClaimTemplates:
-    - metadata:
-        name: mysql-storage-dev
-      spec:
-        accessModes: ["ReadWriteOnce"]
-        resources:
-          requests:
-            storage: 5Gi
-        storageClassName: ebs-sc
+      volumeClaimTemplates:
+        - metadata:
+            name: mysql-storage-dev
+          spec:
+            accessModes: ["ReadWriteOnce"]
+            resources:
+              requests:
+                storage: 5Gi
+            storageClassName: ebs-sc
