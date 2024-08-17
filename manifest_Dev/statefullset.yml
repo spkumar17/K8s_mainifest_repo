@@ -93,7 +93,7 @@ spec:
             - '-c'
             - 'rm -rf /var/lib/mysql/*'
           volumeMounts:
-            - name: mysql-storage-prod
+            - name: mysql-storage-dev
               mountPath: /var/lib/mysql
       containers:
         - name: mysql
