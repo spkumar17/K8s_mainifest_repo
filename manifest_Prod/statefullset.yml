@@ -53,4 +53,3 @@ spec:
           requests:
             storage: 5Gi
         storageClassName: ebs-sc 
-
