@@ -236,6 +236,85 @@ NAME                         CPU(cores)   CPU%   MEMORY(bytes)   MEMORY%
 ip-10-0-3-230.ec2.internal   34m          1%     1318Mi          39%
 ip-10-0-4-216.ec2.internal   28m          1%     1124Mi          33%
 
+#we need to make sure to have actuator dependency is Spring Boot Actuator provides production-ready features like monitoring, metrics, and health checks for your Spring Boot applications.
+several built-in endpoints that offer valuable insights into the health and performance of your application. These endpoints can be accessed over HTTP and are very useful for monitoring and managing your application.
+<dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
+
+and we also need to add the below command in application.properties file  to enable all the metric end points
+
+# Actuator  will enable all th metrics endpoints 
+management.endpoints.web.exposure.include=*
+
+this is are all the default metric views available 
+to view this use 
+URL:PORT/actuator/metrics
+
+{"names":["application.ready.time","application.started.time","disk.free","disk.total","executor.active","executor.completed","executor.pool.core",
+"executor.pool.max","executor.pool.size","executor.queue.remaining","executor.queued","hikaricp.connections","hikaricp.connections.acquire",
+"hikaricp.connections.active","hikaricp.connections.creation","hikaricp.connections.idle","hikaricp.connections.max","hikaricp.connections.min",
+"hikaricp.connections.pending","hikaricp.connections.timeout","hikaricp.connections.usage","http.server.requests.active","jdbc.connections.active",
+"jdbc.connections.idle","jdbc.connections.max","jdbc.connections.min","jvm.buffer.count","jvm.buffer.memory.used","jvm.buffer.total.capacity",
+"jvm.classes.loaded","jvm.classes.unloaded","jvm.compilation.time","jvm.gc.live.data.size","jvm.gc.max.data.size","jvm.gc.memory.allocated",
+"jvm.gc.memory.promoted","jvm.gc.overhead","jvm.gc.pause","jvm.info","jvm.memory.committed","jvm.memory.max","jvm.memory.usage.after.gc",
+"jvm.memory.used","jvm.threads.daemon","jvm.threads.live","jvm.threads.peak","jvm.threads.started","jvm.threads.states","logback.events",
+"process.cpu.time","process.cpu.usage","process.files.max","process.files.open","process.start.time","process.uptime","system.cpu.count",
+"system.cpu.usage","system.load.average.1m","tomcat.sessions.active.current","tomcat.sessions.active.max","tomcat.sessions.alive.max",
+"tomcat.sessions.created","tomcat.sessions.expired","tomcat.sessions.rejected"]}
+
+If we want a specific detailed metric for example (system.cpu.usage) then 
+URL:PORT/actuator/metrics/system.cpu.usage
+
+{"name":"system.cpu.usage","description":"The \"recent cpu usage\" of the system the application is running in","measurements":[{"statistic":"VALUE","value":0.0}],"availableTags":[]}
+
+but prometheus can understand this it expects to be in a specific format for that we need to add io.micrometer dependency
+
+<!-- https://mvnrepository.com/artifact/io.micrometer/micrometer-registry-prometheus -->
+<dependency>
+    <groupId>io.micrometer</groupId>
+    <artifactId>micrometer-registry-prometheus</artifactId>
+    <version>1.13.3</version>
+</dependency>
+
+------------------------------------------
+now we need to screp this metrics with prometheus to do that we need to add this application as a target in prometheus configuration to do so
+go to configmas 
+
+kubectl get cm -n prometheus
+edit the prometheus-server    
+
+ kubectl edit cm prometheus-server -n prometheus
+add this in scrape_configs section 
+
+scrape_configs:
+    - job_name: petclinic-deployment-dev
+      metrics_path: '/actuator/prometheus'
+      scrape_interval: 3s
+      static_configs:
+      - targets: ['frontend-service-dev.petclinic-dev:81']
+        labels:
+          application: 'petclinic-deployment-dev'
+
+- job_name: petclinic-deployment-dev  -->job name
+scrape_interval: 3s  --->scarp intervel
+static_configs:
+- targets: ['frontend-service-dev.petclinic-dev:81']  -->endpoint url 
+labels:
+application: 'petclinic-deployment-dev' -->label
+
+
+
+
+
+
+
+
+
+
+
+
 
 Grafana:
 
