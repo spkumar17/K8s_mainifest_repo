@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: mysql
-  namespace: petclinic-prod
+  namespace: petclinic-Prod
 spec:
   serviceName: "mysql-headless-backend"
   replicas: 1
@@ -32,31 +32,27 @@ spec:
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: mysecret-prod
                   key: ROOT_PASSWORD
+                  name: mysecret-prod
             - name: MYSQL_USER
               valueFrom:
                 secretKeyRef:
-                  name: mysecret-prod1
                   key: MYSQL_USER
+                  name: mysecret-prod1
             - name: MYSQL_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: mysecret-prod2
                   key: MYSQL_PASSWORD
-          ports:
-            - containerPort: 3306
-              name: mysql
+                  name: mysecret-prod2
           volumeMounts:
             - name: mysql-storage-prod
               mountPath: /var/lib/mysql
-      volumeClaimTemplates:
-        - metadata:
-            name: mysql-storage-prod
-          spec:
-            accessModes:
-              - ReadWriteOnce
-            resources:
-              requests:
-                storage: 5Gi
-            storageClassName: ebs-sc
+  volumeClaimTemplates:
+    - metadata:
+        name: mysql-storage-prod
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 5Gi
+        storageClassName: ebs-sc 
