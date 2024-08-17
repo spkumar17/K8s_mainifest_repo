@@ -97,12 +97,12 @@ spec:
             - name: MYSQL_USER
               valueFrom:
                 secretKeyRef:
-                  key: USER_NAME
+                  key: MYSQL_USER
                   name: mysecret-dev1
-            - name: MYSQL_PASSWORD
+            - name: MYSQL_PASS
               valueFrom:
                 secretKeyRef:
-                  key: USER_PASSWORD
+                  key: MYSQL_PASS
                   name: mysecret-dev2
           volumeMounts:
             - name: mysql-storage-dev
