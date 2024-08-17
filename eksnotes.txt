@@ -304,13 +304,25 @@ static_configs:
 labels:
 application: 'petclinic-deployment-dev' -->label
 
+after editing  port-forward the prometheus server and check the status menu and click on targets check is the target is configured and up 
+then go to graphs gives some prompql commands ( kubectl port-forward svc/prometheus-server 9090:80 -n prometheus)
+and execute
+ then try accessing your application then you will get the realtime info based on the prompt.
+ 
+ kubectl port-forward svc/prometheus-server 9090:80 -n prometheus
 
+Service Discovery:
+we have added a target of specific application manually but as we have 100's of such(app)pods we cant add them manually so we use service Discovery
+so we use service Discovery mechanism lets understand how kubernetes service Discovery works
+we can also dynamically Discovery using dynamic config's 
+kubernetes service Discovery scrap's targets from kubernetes API
 
+as per the kubernetes service Discovery
+annotations:
+  prometheus.io/path: /actuator/prometheus
+  prometheus.io/scrape: "true"
 
-
-
-
-
+add this to to make target to prometheus dynamically in annotation 
 
 
 
