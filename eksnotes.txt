@@ -162,7 +162,7 @@ copy data from local machine to pods pv mount path
 
 kubectl cp ./mysql mysql-0:/var/lib/mysql
 
->kubectl cp . -n petclinic-dev mysql-0:/var/lib/mysql -c mysql
+kubectl cp . mysql-0:/var/lib/mysql -c mysql -n petclinic-prod
 
 enter into mysql container 
 kubectl exec -it mysql-0 -n petclinic-prod -- sh
@@ -214,3 +214,46 @@ this we faces:
 ImagePullBackOff
 CrashLoopBackOff
 ConfigMapError
+Createcontainerconfigerror
+
+Prometeus ans grafana:
+----------------------
+The Prometheus server can be accessed via port 80 on the following DNS name from within your cluster:
+prometheus-server.prometheus.svc.cluster.local
+Prometheus server URL
+kubectl --namespace prometheus port-forward $POD_NAME 9090
+alert manager
+kubectl --namespace prometheus port-forward $POD_NAME 9093
+The Prometheus PushGateway can be accessed via port 9091 on the following DNS name from within your cluster:
+prometheus-prometheus-pushgateway.prometheus.svc.cluster.local
+ PushGateway URL 
+ kubectl --namespace prometheus port-forward $POD_NAME 9091
+
+ ------------------------
+ this command checks the cpu and memory ultilization of nodes 
+C:\Users\prasa>kubectl top nodes
+NAME                         CPU(cores)   CPU%   MEMORY(bytes)   MEMORY%
+ip-10-0-3-230.ec2.internal   34m          1%     1318Mi          39%
+ip-10-0-4-216.ec2.internal   28m          1%     1124Mi          33%
+
+
+Grafana:
+
+Get your 'admin' user password by running:
+
+kubectl get secret --namespace grafana grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+
+2. The Grafana server can be accessed via port 80 on the following DNS name from within your cluster:
+
+   grafana.grafana.svc.cluster.local
+
+   Get the Grafana URL to visit by running these commands in the same shell:
+     export POD_NAME=$(kubectl get pods --namespace grafana -l "app.kubernetes.io/name=grafana,app.kubernetes.io/instance=grafana" -o jsonpath="{.items[0].metadata.name}")
+     kubectl --namespace grafana port-forward $POD_NAME 3000
+
+3. Login with the password from step 1 and the username: admin
+#################################################################################
+######   WARNING: Persistence is disabled!!! You will lose your data when   #####
+######            the Grafana pod is terminated.                            #####
+#################################################################################
+
