@@ -5,7 +5,7 @@ metadata:
   namespace: petclinic-dev
   annotations:
     prometheus.io/path: /actuator/prometheus
-    prometheus.io/scrape: "true"  
+    prometheus.io/scrape: "true"
 spec:
   type: LoadBalancer
   selector:
