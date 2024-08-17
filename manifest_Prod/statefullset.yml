@@ -29,27 +29,30 @@ spec:
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  key: ROOT_PASSWORD
                   name: mysecret-prod
+                  key: ROOT_PASSWORD
             - name: MYSQL_USER
               valueFrom:
                 secretKeyRef:
-                  key: MYSQL_USER
                   name: mysecret-prod1
+                  key: MYSQL_USER
             - name: MYSQL_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  key: MYSQL_PASSWORD
                   name: mysecret-prod2
+                  key: MYSQL_PASSWORD
+          ports:
+            - containerPort: 3306
+              name: mysql
           volumeMounts:
             - name: mysql-storage-prod
               mountPath: /var/lib/mysql
-  volumeClaimTemplates:
-    - metadata:
-        name: mysql-storage-prod
-      spec:
-        accessModes: ["ReadWriteOnce"]
-        resources:
-          requests:
-            storage: 5Gi
-        storageClassName: ebs-sc 
+      volumeClaimTemplates:
+        - metadata:
+            name: mysql-storage-prod
+          spec:
+            accessModes: ["ReadWriteOnce"]
+            resources:
+              requests:
+                storage: 5Gi
+            storageClassName: ebs-sc
