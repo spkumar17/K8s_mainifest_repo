@@ -12,3 +12,6 @@ spec:
       name: cadvisor
   endpoints:
   - port: http
+    path: /metrics
+    scheme: http
+    
