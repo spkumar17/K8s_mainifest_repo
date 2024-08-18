@@ -7,7 +7,8 @@ metadata:
     app: petclinic-label-dev
   annotations:
     prometheus.io/path: /actuator/prometheus
-    prometheus.io/scrape: "true"  
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "80" 
 spec:
   replicas: 2
   selector:
