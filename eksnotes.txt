@@ -361,7 +361,7 @@ we need to add below things at the time of deployment
 
 need to add but creating values.yml by using below command
 
- helm show values prometheus-community/prometheus-mysql-exporter > values.yml
+ helm show values grafana/grafana > values.yml
 
 then update or install helm chat as below 
 helm upgrade grafana grafana/grafana -f values.yml --namespace grafana
@@ -370,7 +370,7 @@ smtp:
   # Enable SMTP
   enabled: true
   # SMTP server configuration
-  host: smtp.example.com:587
+  host: smtp.gmail.com:465
   # SMTP user credentials
   user: your-email@example.com
   password: your-email-password
