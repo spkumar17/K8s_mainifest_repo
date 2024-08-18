@@ -316,7 +316,7 @@ we have added a target of specific application manually but as we have 100's of 
 so we use service Discovery mechanism lets understand how kubernetes service Discovery works
 we can also dynamically Discovery using dynamic config's 
 kubernetes service Discovery scrap's targets from kubernetes API
-
+ ref:https://prometheus.io/docs/prometheus/latest/configuration/configuration/#kubernetes_sd_config
 as per the kubernetes service Discovery
 annotations:
   prometheus.io/path: /actuator/prometheus
@@ -348,4 +348,28 @@ kubectl get secret --namespace grafana grafana -o jsonpath="{.data.admin-passwor
 ######            the Grafana pod is terminated.                            #####
 #################################################################################
 
-   
+port-forward the grafana 
+
+connections/dataSOURCE give the below url to integrate prometheus and grafana
+
+http://prometheus-server.prometheus:80 
+then create graph 
+
+to send mail notification from grafana if theashold breach we need to add smtp related thing in /etc/Grafana/grafana.init
+as it is a readonly file as we used helm to deploy we neeed to add the in values.yml at the time of deployment
+we need to add below things at the time of deployment 
+
+## Grafana SMTP Configuration
+smtp:
+  # Enable SMTP
+  enabled: true
+  # SMTP server configuration
+  host: smtp.example.com:587
+  # SMTP user credentials
+  user: your-email@example.com
+  password: your-email-password
+  # SMTP settings
+  fromAddress: your-email@example.com
+  fromName: Grafana
+  # Optional: Enable TLS/SSL for SMTP
+  skipVerify: false
