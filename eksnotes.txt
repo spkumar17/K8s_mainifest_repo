@@ -25,7 +25,7 @@ helm upgrade --install aws-ebs-csi-driver aws-ebs-csi-driver/aws-ebs-csi-driver 
 -----------------------------
 to decrypt base64
 --------------------------
-powershell -Command "[System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String('S0ZyZlQxYnc2dE1sbjZZUQ=='))"
+powershell -Command "[System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String('WEVWZkpvbkxPTTVKb3hKajFwcjZxSHY4V1c3RFdVUWdtemVTcnlMVA=='))"
 
 Encoding to base64 in windows
 
@@ -346,7 +346,7 @@ kubectl get secret --namespace grafana grafana -o jsonpath="{.data.admin-passwor
 #################################################################################
 ######   WARNING: Persistence is disabled!!! You will lose your data when   #####
 ######            the Grafana pod is terminated.                            #####
-#################################################################################
+#################################################################################    default grafana dashboadids:17375  | 6417
 
 port-forward the grafana 
 
@@ -359,6 +359,12 @@ to send mail notification from grafana if theashold breach we need to add smtp r
 as it is a readonly file as we used helm to deploy we neeed to add the in values.yml at the time of deployment
 we need to add below things at the time of deployment 
 
+need to add but creating values.yml by using below command
+
+ helm show values prometheus-community/prometheus-mysql-exporter > values.yml
+
+then update or install helm chat as below 
+helm upgrade grafana grafana/grafana -f values.yml --namespace grafana
 ## Grafana SMTP Configuration
 smtp:
   # Enable SMTP
