@@ -7,5 +7,3 @@ data:
   mapUsers: |
     - userarn: arn:aws:iam::021891605639:user/kumar
       username: kumar
-      groups:
-        - Dev-team
