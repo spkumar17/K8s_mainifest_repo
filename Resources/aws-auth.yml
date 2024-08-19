@@ -8,4 +8,4 @@ data:
     - userarn: arn:aws:iam::021891605639:user/kumar
       username: kumar
       groups:
-          - admin  
+        - admin
