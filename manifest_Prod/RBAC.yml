@@ -5,7 +5,7 @@ metadata:
   namespace: petclinic-prod
 rules:
 - apiGroups: [""]
-  resources: ["pods", "services", "deployments", "StatefulSet"]
+  resources: ["pods", "services", "deployments", "statefulsets"]
   verbs: ["get", "list", "watch"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -15,7 +15,7 @@ metadata:
   namespace: petclinic-prod
 subjects:
 - kind: Group
-  name: "Dev-k8s" 
+  name: "Dev-k8s"
   apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: Role
