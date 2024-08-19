@@ -6,10 +6,10 @@ metadata:
 data:
   mapGroups: |
     - grouparn: arn:aws:iam::021891605639:group/Dev-k8s
-      groups:
+      group: 
         - Dev-k8s
     - grouparn: arn:aws:iam::021891605639:group/Prod-k8s
-      groups:
+      group: 
         - Prod-k8s
   mapUsers: |
     - userarn: arn:aws:iam::021891605639:user/kumar
