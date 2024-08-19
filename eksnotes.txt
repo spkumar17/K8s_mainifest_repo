@@ -25,7 +25,7 @@ helm upgrade --install aws-ebs-csi-driver aws-ebs-csi-driver/aws-ebs-csi-driver 
 -----------------------------
 to decrypt base64
 --------------------------
-powershell -Command "[System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String('WEVWZkpvbkxPTTVKb3hKajFwcjZxSHY4V1c3RFdVUWdtemVTcnlMVA=='))"
+powershell -Command "[System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String('S0ZyZlQxYnc2dE1sbjZZUQ=='))"
 
 Encoding to base64 in windows
 
@@ -379,3 +379,4 @@ smtp:
   fromName: Grafana
   # Optional: Enable TLS/SSL for SMTP
   skipVerify: false
+  Reminder you logged in as kumar user into aws cli
