@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aws-auth
+  namespace: kube-system
+data:
+  mapGroups: |
+    - grouparn: arn:aws:iam::021891605639:group/Dev-k8s
+      group: 
+        - Dev-k8s
+    - grouparn: arn:aws:iam::021891605639:group/Prod-k8s
+      group: 
+        - Prod-k8s
+  mapUsers: |
+    - userarn: arn:aws:iam::021891605639:user/kumar
+      username: kumar
+      groups:
+        - Dev-k8s
+    - userarn: arn:aws:iam::021891605639:user/Murthy
+      username: Murthy
+      groups:
+        - Prod-k8s
