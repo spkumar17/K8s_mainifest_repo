@@ -1,0 +1,67 @@
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: "Murthy-read-access"
+rules:
+- apiGroups: [""]
+  resources: ["nodes", "pods", "services", "endpoints", "persistentvolumeclaims", "persistentvolumes"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["apps", "extensions"]
+  resources: ["deployments", "replicasets", "daemonsets", "statefulsets"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["batch"]
+  resources: ["jobs", "cronjobs"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["rbac.authorization.k8s.io"]
+  resources: ["roles", "rolebindings", "clusterroles", "clusterrolebindings"]
+  verbs: ["get", "list", "watch"]
+---
+# cluster-role.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: Prod-cluster-admin-binding
+subjects:
+- kind: User
+  name: "Murthy"
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: "Murthy-read-access"
+  apiGroup: rbac.authorization.k8s.io
+---
+#this role gives all premissions to Kumar on Dev-namespace
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: petclinic-prod--full-access
+  namespace: petclinic-prod
+rules:
+- apiGroups: [""]
+  resources: ["pods", "services", "endpoints", "persistentvolumeclaims", "persistentvolumes"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["apps", "extensions"]
+  resources: ["deployments", "replicasets", "daemonsets", "statefulsets"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["batch"]
+  resources: ["jobs", "cronjobs"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["rbac.authorization.k8s.io"]
+  resources: ["roles", "rolebindings"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: Petclinic-prod-full-access-binding
+  namespace: petclinic-prod
+subjects:
+- kind: User
+  name: "Murthy"
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: petclinic-prod--full-access
+  apiGroup: rbac.authorization.k8s.io
