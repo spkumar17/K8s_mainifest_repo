@@ -36,7 +36,7 @@ roleRef:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: petclinic-prod--full-access-Murthy
+  name: petclinic-prod-full-access-Murthy
   namespace: petclinic-prod
 rules:
 - apiGroups: [""]
@@ -63,5 +63,5 @@ subjects:
   apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: Role
-  name: petclinic-prod--full-access
+  name: petclinic-prod-full-access-Murthy
   apiGroup: rbac.authorization.k8s.io
