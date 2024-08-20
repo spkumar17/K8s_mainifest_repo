@@ -24,7 +24,7 @@ metadata:
   name: cluster-admin-binding
 subjects:
 - kind: User
-  name: "kumar" # The Kubernetes user mapped via IAM
+  name: "Kumar"
   apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
