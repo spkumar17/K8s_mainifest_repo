@@ -379,4 +379,54 @@ smtp:
   fromName: Grafana
   # Optional: Enable TLS/SSL for SMTP
   skipVerify: false
-  Reminder you logged in as kumar user into aws cli
+  
+  RBAC --->
+  first create 2 users  named Kumar who works on DEV namespace rescources and Murthy who Works on Prod namespace rescources i want kumar to have read permissions on all the rescources on all the namespaces
+  but we  also need Kumar to have delete modify permissions on Dev-namespace as he works on that namespace
+  same with Murthy as he works on Prod we need to give delete create and modfiy access on Prod 
+
+so we need to add kumar to kubernetes using iamindentitymapping
+ eksctl create iamidentitymapping --cluster eks-cluster --arn arn:aws:iam::021891605639:user/Kumar --username Kumar --group Dev-admin
+
+the IAM identity mapping integrates IAM users and roles with Kubernetes users and groups, allowing for a seamless 
+combination of AWS IAM and Kubernetes RBAC (Role-Based Access Control).
+
+
+ next create and add kumar in aws-auth Configmap 
+ apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aws-auth
+  namespace: kube-system
+data:
+  mapRoles: |
+    []  
+  mapUsers: |
+    - userarn: arn:aws:iam::021891605639:user/kumar
+      username: kumar
+      groups:
+        - Dev-admin
+
+
+ The aws-auth ConfigMap is necessary to map IAM users or roles to Kubernetes users and groups. Without this step, Kubernetes won't recognize the IAM users or roles and thus won't apply the permissions defined in the ClusterRoleBinding.
+C:\Users\prasa>kubectl auth can-i get pods -n petclinic-prod --as Kumar
+yes
+
+C:\Users\prasa>kubectl get nodes --as Kumar
+NAME                         STATUS   ROLES    AGE    VERSION
+ip-10-0-3-230.ec2.internal   Ready    <none>   4d8h   v1.30.2-eks-1552ad0
+ip-10-0-3-239.ec2.internal   Ready    <none>   2d3h   v1.30.2-eks-1552ad0
+ip-10-0-4-216.ec2.internal   Ready    <none>   4d8h   v1.30.2-eks-1552ad0
+
+C:\Users\prasa>kubectl auth can-i get nodes --as Kumar
+
+yes
+
+
+PS C:\Users\prasa> kubectl auth can-i delete jobs -n petclinic-dev --as Kumar
+yes
+PS C:\Users\prasa> kubectl auth can-i delete jobs -n petclinic-prod --as Kumar
+no
+
+need to check the same for Murthy
+PS C:\Users\prasa>
