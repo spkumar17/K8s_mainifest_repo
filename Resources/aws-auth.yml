@@ -11,3 +11,7 @@ data:
       username: kumar
       groups:
         - Dev-admin
+    - userarn: arn:aws:iam::021891605639:user/Murthy
+      username: Murthy
+      groups:
+        - Prod-admin    
