@@ -30,3 +30,38 @@ roleRef:
   kind: ClusterRole
   name: Kumar
   apiGroup: rbac.authorization.k8s.io
+---
+#this role gives all premissions to Kumar on Dev-namespace
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: petclinic-dev--full-access
+  namespace: petclinic-dev
+rules:
+- apiGroups: [""]
+  resources: ["pods", "services", "endpoints", "persistentvolumeclaims", "persistentvolumes"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["apps", "extensions"]
+  resources: ["deployments", "replicasets", "daemonsets", "statefulsets"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["batch"]
+  resources: ["jobs", "cronjobs"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["rbac.authorization.k8s.io"]
+  resources: ["roles", "rolebindings"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: Petclinic-dev-full-access-binding
+  namespace: petclinic-dev
+subjects:
+- kind: User
+  name: "Kumar" # Replace with the correct username
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: petclinic-dev--full-access
+  apiGroup: rbac.authorization.k8s.io
