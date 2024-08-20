@@ -1,0 +1,35 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: deny-from-prod
+  namespace: petclinic-dev
+spec:
+  podSelector: {}  
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: petclinic-prod
+
+# petclinic dev  will deny the ingress traffic from prod namespace (deny ingress from namespace which container lable as petclinic-prod) 
+
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: deny-from-dev
+  namespace: petclinic-prod
+spec:
+  podSelector: {}  
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: petclinic-dev
+
+         # petclinic prod will deny the ingress traffic from dev namespace (deny ingress from namespace which container lable as petclinic-dev) 
+ 
