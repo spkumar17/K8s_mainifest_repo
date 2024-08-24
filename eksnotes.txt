@@ -431,3 +431,35 @@ no
 
 need to check the same for Murthy
 PS C:\Users\prasa>
+
+----------------------------------------------------------
+prometheus alerting:
+--------------------
+up{ service="frontend-service-dev"}
+up metrics is a special type of metrics which will define wether the metrics is up or down 
+if it is 1 them our service is running 
+if 0 then the service is down 
+
+we need to create a role such that when an metrics is zero then alert will be sent 
+we need to config that in a cm in promethues namespace:
+
+kubectl edit cm -n promethues
+
+alerting rule:alerting_rules.yml: | 
+
+
+groups:
+- name: example_alerts
+  rules:
+  - alert: FrontendServiceDown
+    expr: up{service="frontend-service-dev"} == 0
+    for: 5s
+    labels:
+      severity: critical
+    annotations:
+      summary: "Frontend service is down"
+      description: "The frontend service ({{ $labels.service }}) has been down for more than 5 seconds."
+
+
+
+
