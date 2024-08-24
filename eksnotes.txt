@@ -387,7 +387,8 @@ smtp:
 
 so we need to add kumar to kubernetes using iamindentitymapping
  eksctl create iamidentitymapping --cluster eks-cluster --arn arn:aws:iam::021891605639:user/Kumar --username Kumar --group Dev-admin
-
+ eksctl create iamidentitymapping --cluster eks-cluster --arn arn:aws:iam::021891605639:user/Murthy --username Murthy --group Prod-admin
+ 
 the IAM identity mapping integrates IAM users and roles with Kubernetes users and groups, allowing for a seamless 
 combination of AWS IAM and Kubernetes RBAC (Role-Based Access Control).
 
