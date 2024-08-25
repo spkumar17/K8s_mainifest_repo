@@ -7,13 +7,7 @@ spec:
   podSelector: {}  # This applies to all pods in the petclinic-prod namespace
   policyTypes:
   - Ingress
-  ingress:
-  - from:
-    - namespaceSelector:
-        matchLabels:
-          name: petclinic-dev
-
-
+  
 
 # petclinic dev  will deny the ingress traffic from prod namespace (deny ingress from namespace which container lable as petclinic-prod) 
 
@@ -27,12 +21,6 @@ spec:
   podSelector: {}  # This applies to all pods in the petclinic-dev namespace
   policyTypes:
   - Ingress
-  ingress:
-  - from:
-    - namespaceSelector:
-        matchLabels:
-          name: petclinic-prod
-
-
+  
 # This policy denies ingress traffic from any pod in the petclinic-prod namespace to any pod in the petclinic-dev namespace.
  
