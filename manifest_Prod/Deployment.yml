@@ -1,49 +1,3 @@
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   name: petclinic-deployment
-#   namespace: petclinic-prod
-#   labels:
-#     app: petclinic-label-prod
-# spec:
-#   replicas: 2
-#   selector:
-#     matchLabels:
-#       app: petclinic-label-prod
-#   template:
-#     metadata:
-#       labels:
-#         app: petclinic-label-prod
-#     spec:
-#       serviceAccountName: petclinic-sa-prod
-#       containers:
-#       - name: petclinic-prod
-#         image: prasannakumarsinganamalla431/petclinic:12
-#         ports:
-#         - containerPort: 80
-#         env:
-#         - name: MYSQL_URL
-#           valueFrom:
-#             configMapKeyRef:
-#               name: petclinic-config
-#               key: MYSQL_URL
-#         - name: MYSQL_ROOT_PASSWORD
-#           valueFrom:
-#             secretKeyRef:
-#               name: mysecret-prod
-#               key: ROOT_PASSWORD     
-#         - name:  MYSQL_USER
-#           valueFrom:
-#             secretKeyRef:
-#               name: mysecret-prod1
-#               key: MYSQL_USER
-#         - name: MYSQL_PASSWORD
-#           valueFrom:
-#             secretKeyRef:
-#               name: mysecret-prod2
-#               key: MYSQL_PASSWORD
-
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -78,7 +32,7 @@ spec:
             secretKeyRef:
               name: mysecret-prod
               key: ROOT_PASSWORD     
-        - name: MYSQL_USER
+        - name:  MYSQL_USER
           valueFrom:
             secretKeyRef:
               name: mysecret-prod1
@@ -88,13 +42,5 @@ spec:
             secretKeyRef:
               name: mysecret-prod2
               key: MYSQL_PASSWORD
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: 8080
-            scheme: HTTP
-          initialDelaySeconds: 5
-          periodSeconds: 10
-          successThreshold: 1
-          failureThreshold: 3
-          timeoutSeconds: 1
+
+
