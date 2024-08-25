@@ -4,14 +4,15 @@ metadata:
   name: deny-from-prod
   namespace: petclinic-dev
 spec:
-  podSelector: {}  
+  podSelector: {}  # Applies to all pods in the petclinic-dev namespace
   policyTypes:
   - Ingress
-  ingress:
-  - from:
-    - namespaceSelector:
-        matchLabels:
-          name: petclinic-prod
+  ingress:  # Deny all ingress traffic from the petclinic-prod namespace
+  - from: []
+    namespaceSelector:
+      matchLabels:
+        name: petclinic-prod
+
 
 # petclinic dev  will deny the ingress traffic from prod namespace (deny ingress from namespace which container lable as petclinic-prod) 
 
@@ -22,14 +23,15 @@ metadata:
   name: deny-from-dev
   namespace: petclinic-prod
 spec:
-  podSelector: {}  
+  podSelector: {}  # Applies to all pods in the petclinic-prod namespace
   policyTypes:
   - Ingress
-  ingress:
-  - from:
-    - namespaceSelector:
-        matchLabels:
-          name: petclinic-dev
+  ingress:  # Deny all ingress traffic from the petclinic-dev namespace
+  - from: []
+    namespaceSelector:
+      matchLabels:
+        name: petclinic-dev
+
 
          # petclinic prod will deny the ingress traffic from dev namespace (deny ingress from namespace which container lable as petclinic-dev) 
  
