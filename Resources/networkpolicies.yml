@@ -22,15 +22,18 @@ kind: NetworkPolicy
 metadata:
   name: deny-from-dev
   namespace: petclinic-prod
+  labels:
+    app.kubernetes.io/instance: resources
 spec:
   podSelector: {}  # Applies to all pods in the petclinic-prod namespace
   policyTypes:
   - Ingress
-  ingress:  # Deny all ingress traffic from the petclinic-dev namespace
-  - from: []
+  ingress:
+  - from: []  # Deny all ingress traffic from the petclinic-dev namespace
     namespaceSelector:
       matchLabels:
         name: petclinic-dev
+
 
 
          # petclinic prod will deny the ingress traffic from dev namespace (deny ingress from namespace which container lable as petclinic-dev) 
