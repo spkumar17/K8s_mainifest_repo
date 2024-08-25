@@ -106,14 +106,7 @@ spec:
                   name: mysecret-dev2
           volumeMounts:
             - name: mysql-storage-dev
-              mountPath: /var/lib/mysql
-          resources:
-            requests:
-              memory: "256Mi"     
-              cpu: "500m"
-            limits:
-              memory: "512Mi"
-              cpu: "1000m"    
+              mountPath: /var/lib/mysql 
   volumeClaimTemplates:
     - metadata:
         name: mysql-storage-dev
