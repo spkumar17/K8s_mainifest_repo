@@ -12,6 +12,5 @@ spec:
     pods: "10"
     services: "5"
     replicationcontrollers: "5"
-    statefulsets: "5"
     secrets: "10"
     configmaps: "10"
