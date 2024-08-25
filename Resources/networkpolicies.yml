@@ -35,9 +35,4 @@ spec:
 
 
 # This policy denies ingress traffic from any pod in the petclinic-prod namespace to any pod in the petclinic-dev namespace.
-
-
-
-
-         # petclinic prod will deny the ingress traffic from dev namespace (deny ingress from namespace which container lable as petclinic-dev) 
  
