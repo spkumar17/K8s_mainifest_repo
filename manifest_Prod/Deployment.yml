@@ -42,5 +42,11 @@ spec:
             secretKeyRef:
               name: mysecret-prod2
               key: MYSQL_PASSWORD
-
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "500m"
+          limits:
+            memory: "512Mi"
+            cpu: "1000m"
 
