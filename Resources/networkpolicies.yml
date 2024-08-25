@@ -20,19 +20,17 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: deny-from-dev
-  namespace: petclinic-prod
-  labels:
-    app.kubernetes.io/instance: resources
+  name: deny-from-prod
+  namespace: petclinic-dev
 spec:
-  podSelector: {}  # Applies to all pods in the petclinic-prod namespace
+  podSelector: {}  # Applies to all pods in the petclinic-dev namespace
   policyTypes:
   - Ingress
   ingress:
-  - from: []  # Deny all ingress traffic from the petclinic-dev namespace
+  - from: []  # Deny all ingress traffic from the specified namespace
     namespaceSelector:
       matchLabels:
-        name: petclinic-dev
+        name: petclinic-prod
 
 
 
