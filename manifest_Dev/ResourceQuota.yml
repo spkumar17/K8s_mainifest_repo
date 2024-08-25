@@ -5,9 +5,9 @@ metadata:
   namespace: petclinic-dev
 spec:
   hard:
-    requests.cpu: "2"
+    requests.cpu: "1"
     requests.memory: "3Gi"
-    limits.cpu: "4"
+    limits.cpu: "2"
     limits.memory: "6Gi"
     pods: "8"
     services: "4"
