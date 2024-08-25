@@ -442,24 +442,26 @@ if 0 then the service is down
 
 we need to create a role such that when an metrics is zero then alert will be sent 
 we need to config that in a cm in promethues namespace:
-
-kubectl edit cm -n promethues
+kubectl edit cm prometheus-server -n prometheus 
 
 alerting rule:alerting_rules.yml: | 
 
-
 groups:
-- name: example_alerts
-  rules:
-  - alert: FrontendServiceDown
-    expr: up{service="frontend-service-dev"} == 0
-    for: 5s
-    labels:
-      severity: critical
-    annotations:
-      summary: "Frontend service is down"
-      description: "The frontend service ({{ $labels.service }}) has been down for more than 5 seconds."
+    - name: example_alerts
+      rules:
+        - alert: FrontendServiceDown
+          expr: up{service="frontend-service-dev"} == 0
+          for: 5s
+          labels:
+            severity: critical
+          annotations:
+            summary: "Frontend service is down"
+            description: "The frontend service ({{ $labels.service }}) has been down for more than 5 seconds."
 
+now we need to edit the alert-manager cm file to trigger the alert 
+prometheus server only checks the rule once the rule was met it triggers the alert manager  so we need to again set the notification configuration
+ kubectl edit cm prometheus-alertmanager -n prometheus
 
-
-
+ need to get the slack webhook url from 
+ api.slack.com/apps 
+ for the configration that have be done refer the file cmdemoprometheus 
