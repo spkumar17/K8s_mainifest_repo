@@ -137,7 +137,7 @@ metadata:
   name: allow-communication-from-specific-namespaces
   namespace: petclinic-prod
 spec:
-  podSelector: {}  # Applies to all Pods in petclinic-dev
+  podSelector: {}  # Applies to all Pods in petclinic-prod
   policyTypes:
   - Ingress
   - Egress
