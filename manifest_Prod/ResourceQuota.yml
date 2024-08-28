@@ -25,15 +25,20 @@ metadata:
 spec:
   limits:
     - max:
-        cpu: "2000m"
-        memory: "2Gi"
+        cpu: "1000m"           # Maximum CPU a container can request or use is 1 cores
+        memory: "1Gi"          # Maximum memory a container can request or use is 2 GiB
       min:
-        cpu: "100m"
-        memory: "128Mi"
+        cpu: "100m"            # Minimum CPU a container must request is 100 millicores
+        memory: "128Mi"        # Minimum memory a container must request is 128 MiB
       default:
-        cpu: "500m"
-        memory: "512Mi"
+        cpu: "500m"            # then a container  does not specify any resource limits or requests in specific ns then 
+        memory: "512Mi"        # The container will automatically receive the default CPU limit of 500m and the default memory limit of 512Mi.
       defaultRequest:
         cpu: "250m"
-        memory: "256Mi"
+        memory: "256Mi"        # if the request and limit was defined in the deployment or pod in a namespace the then this values default and default request will not come into effect 
       type: Container
+ 
+
+# The min and max values in a LimitRange set the boundaries for what is allowed in the resources.requests and resources.
+# limits of a pod or container. The default and defaultRequest values apply only when you don't specify resources in your pod spec,
+#  ensuring the pod still gets reasonable resources.
