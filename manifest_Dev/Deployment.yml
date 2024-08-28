@@ -16,6 +16,15 @@ spec:
         app: petclinic-label-dev
     spec:
       serviceAccountName: petclinic-sa-dev
+      # initContainers:
+      #   - name: wait-for-mysql
+      #     image: busybox                          # this will loopup for mysql backend service and make sure to start the mail container untill the backend get started this will continuously lookup for backend service in a loop for every 2 sec and exit from loop only then the backend get started.
+      #     command:
+      #       [
+      #         "sh",
+      #         "-c",
+      #         "until nslookup mysql-headless-backend.petclinic-dev.svc.cluster.local; do echo waiting for mysql-headless-backend; sleep 2; done",
+      #       ]
       containers:
       - name: petclinic-dev
         image: prasannakumarsinganamalla431/petclinic:12
