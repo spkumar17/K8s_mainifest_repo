@@ -53,7 +53,7 @@ spec:
               key: MYSQL_PASSWORD
         resources:
           requests:
-            memory: "256Mi"
+            memory: "256Mi"                                    # this are the reqest and limits a pod will get in this deployment
             cpu: "500m"
           limits:
             memory: "512Mi"
