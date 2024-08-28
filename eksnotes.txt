@@ -470,3 +470,30 @@ Health probes:
 --------------
 Liveness Probe: Deals with long-term issues by restarting the container.
 Readiness Probe: Deals with short-term issues by temporarily removing the Pod from service without restarting it.
+
+
+
+
+Dependency Management: If your main application container depends on another service being available (e.g., a database or API), you can use this approach to ensure the dependent service is up and running before your application starts.
+
+Avoiding Failures: Starting the main application container before its dependencies are ready could lead to connection errors, 
+which might require complex retry logic in the application. This initContainer simplifies the process by ensuring dependencies are available before the main container starts.
+
+Example Use Case:
+Imagine you have a microservice A that depends on microservice B (myservice in this case). Service A should only start after B is available.
+ This initContainer will block the startup of service A until it can confirm that service B is resolvable via DNS, ensuring that service A has a higher chance of successfully connecting to service B on its first try.
+
+Summary:
+The initContainer waits for a dependent service (myservice) to become available by checking its DNS resolution. 
+This ensures that the main application container doesn't start until its dependencies are ready, improving the reliability and stability of your application's startup process.
+
+
+
+LimitRange
+The min and max values in a Kubernetes LimitRange act as boundaries for the resource requests and limits that can be set in pod 
+or container specifications within a namespace. If the resources.requests or resources.limits specified in your Deployment.yaml fall
+ outside these boundaries, Kubernetes will reject the pod. Additionally, if no resource requests or limits are defined in the pod spec, 
+ Kubernetes will automatically apply the defaultRequest and default values from the LimitRange, as long as they fall within the min and max
+  boundaries. Thus, the min and max values ensure that all resource specifications, whether explicitly set in the pod or applied by default,
+   stay within acceptable limits.
+
