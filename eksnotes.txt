@@ -465,3 +465,8 @@ prometheus server only checks the rule once the rule was met it triggers the ale
  need to get the slack webhook url from 
  api.slack.com/apps 
  for the configration that have be done refer the file cmdemoprometheus 
+
+Health probes:
+--------------
+Liveness Probe: Deals with long-term issues by restarting the container.
+Readiness Probe: Deals with short-term issues by temporarily removing the Pod from service without restarting it.
