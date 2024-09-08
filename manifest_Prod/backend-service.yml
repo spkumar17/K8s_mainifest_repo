@@ -3,6 +3,9 @@ kind: Service
 metadata:
   name: mysql-headless-backend
   namespace: petclinic-prod
+  annotations: #if error remove this 
+    prometheus.io/path: /actuator/prometheus
+    prometheus.io/scrape: "true" 
 spec:
   clusterIP: None
   selector:
